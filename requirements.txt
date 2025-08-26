@@ -1,0 +1,11 @@
+ollama 
+sentence-transformers
+faiss-cpu
+datasets
+transformers
+langchain-huggingface 
+langchain_community 
+huggingface_hub
+langchain
+sentence-transformers
+fastapi[standard]
