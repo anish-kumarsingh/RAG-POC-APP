@@ -28,7 +28,7 @@ class FaissVectorDB:
         return [str(uuid4()) for _ in range(len(documents))]
     def findDocuments(self , input_query:str)->list[Document]:
         global __vector_store__
-        return __vector_store__.similarity_search(input_query , k= 2)
+        return __vector_store__.similarity_search(input_query , k= 3)
     
 
 

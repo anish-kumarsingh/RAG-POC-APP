@@ -20,7 +20,7 @@ llm_model = app_properties.getProp(app_constants.APP_LLM_MODEL_ID)
 
 doc_loader = document_loader.DocumentLoader(model_id=embedding_model_name, dimention=768)
 
-doc_loader.loadDataSet()
+doc_loader.loadDataSetFromCsv('text-sql-dataset.csv')
 
 rag = text_sql_service.TextSqlService(embedding_model_name, llm_model=llm_model)
 

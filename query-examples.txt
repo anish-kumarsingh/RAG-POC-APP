@@ -1,0 +1,15 @@
+Example 1:
+User: "Find all work orders that are currently 'In Progress'."
+SQL: SELECT * FROM DUPLO_WORK_ORDER WHERE WORK_ORDER_STATUS = 'In Progress';
+
+Example 2:
+User: "Show me the count of work orders by priority."
+SQL: SELECT PRIORITY, COUNT(*) FROM DUPLO_WORK_ORDER GROUP BY PRIORITY;
+
+Example 3:
+User: "List the work orders created in the last 30 days."
+SQL: SELECT * FROM DUPLO_WORK_ORDER WHERE CREATED_TIME >= CURRENT_DATE - INTERVAL '30 days';
+
+Example 4:
+User: "Find the work order with ID 'WO12345'."
+SQL: SELECT * FROM DUPLO_WORK_ORDER WHERE WORK_ORDER_ID = 'WO12345';
