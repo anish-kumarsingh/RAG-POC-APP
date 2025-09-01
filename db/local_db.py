@@ -27,11 +27,11 @@ class SqlDataPool:
         pass
         self.engin =create_engine(url=url)
         pass
-    def executeQuery(self , query:str):
+    def executeQuery(self , query:str)-> pandas.DataFrame:
         connection = None
         try:
             # connection = self.pool.getconn()
-            return pandas.read_sql(query , self.engin).to_json(orient='records', indent=4)
+            return pandas.read_sql(query , self.engin)
         except Exception as ex:
             print(f"Exception while executing query:  {query} \n Error: {ex}")
         pass

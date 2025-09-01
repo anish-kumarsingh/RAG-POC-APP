@@ -10,10 +10,10 @@ class TextSqlService:
         if cls._instance is None:
             cls._instance = super().__new__(cls)
         return cls._instance
-    def __init__(self, model_id:str, llm_model:str, dimention:int, prompt_file_path:str):
+    def __init__(self, model_id:str, llm_model:str, dimention:int, prompt_file_path:str, chart_prompt_file:str, system_chart_prompt_file:str):
         if not hasattr(self , '_initialized'):
             self.retriver = retriever.Retriver(model_id=model_id, dimention=dimention)
-            self.promp_service=prompt_gen_service.PromptGenService(prompt_file_path)
+            self.promp_service=prompt_gen_service.PromptGenService(prompt_file_path, chart_prompt_file=chart_prompt_file, sys_chart_prompt_file=system_chart_prompt_file)
             self.gen_service=gen.GeneratorService(model_id=llm_model)
             self._initialized=True
             self.logger = logging.getLogger(__name__)

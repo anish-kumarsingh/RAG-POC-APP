@@ -19,6 +19,7 @@ rag = app.App()
 def generate_sql(query:str)->str:
     return rag.generateSql(query)
 
+@fastApp.get("/fetch-results")
 def executeSql(query:str):
     return rag.executeSql(query)
 

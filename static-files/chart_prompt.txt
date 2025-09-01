@@ -1,5 +1,10 @@
-I need a Plotly chart configuration, specifically a Python dictionary, to visualize sales data. 
-The dataset has the following headers: order_date, product_name, region, and revenue. . 
-Please create a line chart that shows the trend of revenue over order_date. 
-The chart should have the title "Revenue Trend by Date" and include a tooltip that shows both the date and the corresponding revenue. 
-The x-axis label should be "Date" and the y-axis label should be "Revenue (USD)".
+Generate a complete Plotly chart configuration in JSON format.
+
+The dataset has the following column headers:
+[ __headers__ ]
+
+Your task is to:
+1.  Analyze the provided headers to determine the most meaningful relationship or trend that can be visualized.
+2.  Choose the most appropriate chart type (e.g., bar chart, line chart, scatter plot, etc.) to represent this relationship.
+3.  Select the correct columns for the x-axis, y-axis, and any other relevant chart properties (like color or hover text).
+4.  Generate a complete Plotly JSON object for the chart, including a descriptive title and appropriate axis labels based on your column choices.
