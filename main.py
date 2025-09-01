@@ -1,56 +1,36 @@
-import streamlit as st
-from db import local_db
-from props import app_props
+from fastapi import FastAPI, Request
 import app
-from utility import app_constants
-import os
-from dotenv import load_dotenv
-
-st.set_page_config(page_title="Welcome to AI Assistance.")
-
-env_path = 'variables.env'
-
-# Load the variables from the specified file
-load_dotenv(dotenv_path=env_path)
+from time import perf_counter 
+import logging 
 
 
-app_properties = app_props.PropLoader('app.properties')
+logging.basicConfig(
+    level=logging.INFO,
+    format=' %(asctime)s - %(name)s - %(levelname)s : %(message)s '
+)
 
-#Add your tocket in environment or here so it will be available to connect with Hugging face.
-# os.environ.setdefault(app_properties.getProp(app_constants.HUGGINGFACE_TOEKN_KEY), app_properties.getProp(app_constants.HUGGINGFACE_TOEKN_KEY))
-print(f"Hugging face value in env : {os.getenv("HF_TOKEN")}")
-data_access=local_db.SqlDataPool(app_properties)
-enable_tabs=False
-enable_error=False
-if "text_value" not in st.session_state:
-    st.session_state.text_value = ""
+logger=logging.getLogger(__name__)
 
-if "error_text_value" not in st.session_state:
-    st.session_state.error_text_value = ""
-if enable_error:
-    st.write(st.session_state.error_text_value)
+fastApp = FastAPI()
 
-tab1 , tab2 = st.tabs(["Data Frame", "Charts"])
-# tab1.dataframe(None, height=250, use_container_width=True)
-# tab1.bar_chart(None, height=250, use_container_width=True)
-user_query=st.text_input(label="Assitant",placeholder="Ask me something.", value=st.session_state.text_value)
-if st.button("Submit"):
-    print(f"User input: {user_query}")
-    st.session_state.text_value=""
-    st.session_state.error_text_value=""
-    enable_error=False
-    sql_query:str = app.processAgentRequst(user_query)
-    print(f"Returned query: {sql_query}")
-    if sql_query is not None and sql_query.strip().lower().startswith("select"):
-        dataFrame = data_access.executeQuery(sql_query)
-        print(f"Got response from db:{dataFrame}")
-        enable_tabs=True
-        tab1.dataframe(dataFrame, height=250, use_container_width=True)
-        tab1.bar_chart(dataFrame, y=['created_time'], x='due_date', height=250, use_container_width=True)
-    else :
-        st.session_state.error_text_value=sql_query
-        enable_error=True
-    # user_query=st.text_input(label="Assitant",placeholder="Ask me something.")
+rag = app.App()
 
+@fastApp.get("/generate-sql")
+def generate_sql(query:str)->str:
+    return rag.generateSql(query)
+
+def executeSql(query:str):
+    return rag.executeSql(query)
+
+@fastApp.middleware('http')
+async def requestLogger(request : Request, chain):
+    start_time = perf_counter()
+    response = await chain(request)
+    duration = perf_counter() - start_time
+    logger.info(
+        '[metric:call.duration] %s %s %d - %.2fs',
+        request.method, request.url, response.status_code , duration
+    )
+    return response
 
 

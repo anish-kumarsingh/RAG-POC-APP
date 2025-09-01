@@ -1,5 +1,5 @@
 
-
+APP_LOCAL_DB_DRIVER_NAME='local.db.driver_name'
 APP_LOCAL_DB_USER_NAME='local.db.user_name'
 APP_LOCAL_DB_PSSWORD='local.db.password'
 APP_LOCAL_MIN_POOL_SIZE='local.db.min_pool_size'
@@ -9,7 +9,9 @@ APP_LOCAL_DB_PORT='local.db.port'
 APP_LOCAL_DB_NAME='local.db.name'
 APP_LOCAL_DB_SCHEMA='local.db.schema'
 APP_LOCAL_DB_CONNECTION_URL='local.db.connection_url'
-
+APP_VECTOR_DB_DIMEN='app.vector-db.dimention'
+APP_VECTOR_DB_SAMPLE_DATASET='app.vector-db.sample-dataset'
+APP_PROMPT_FILE='app.prompt-file'
 HUGGINGFACE_TOEKN_KEY='hf.token.key'
 HUGGINGFACE_TOEKN_VALUE='hf.token.value'
 APP_EMBD_MODEL_ID='app.embedding.model_id'

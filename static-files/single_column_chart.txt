@@ -1,0 +1,6 @@
+I need a Plotly chart configuration as a Python dictionary. 
+The data has a single column with the header __header__. 
+The values are categorical, like __ditinct_value__. 
+Please create a bar chart that shows the count of each __header__. 
+The x-axis should be favorite_fruit and the y-axis should be count. 
+The chart's title should be "__header__ Count."

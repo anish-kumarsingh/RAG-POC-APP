@@ -1,0 +1,29 @@
+default:
+  name: ''
+app:
+  embedding:
+    model_id: 'all-MiniLM-L6-v2'
+  llm:
+    model_id: 'meta-llama/Meta-Llama-3-8B-Instruct'
+  vector-db:
+    dimention: 768
+    sample-dataset: 'static-files/text-sql-dataset.csv'
+  prompt-file: 'static-files/prompt.txt'
+local:
+  db:
+    host: 'localhost'
+    port: 5432
+    name: 'postgres'
+    driver_name: 'postgresql+psycopg2'
+    schema: 'wo'
+    user_name: 'postgres'
+    password: 'Wbd@2025'
+    min_pool_size: 10
+    max_pool_size: 20
+      
+qa:
+  name: 'QA'
+uat:
+  name: 'UAT'
+prod:
+  name: 'Production'

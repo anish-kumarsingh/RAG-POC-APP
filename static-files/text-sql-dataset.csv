@@ -1,0 +1,179 @@
+﻿domain,sql_prompt,sql,sql_context,
+Work Orders,Find all work orders that are currently 'In Progress'.,SELECT * FROM wo.DUPLO_WORK_ORDER WHERE WORK_ORDER_STATUS = 'In Progress',"CREATE TABLE wo.DUPLO_WORK_ORDER (
+                WORK_ORDER_ID VARCHAR(50), -- A unique identifier for each work order. Use this for specific lookups.
+                ASSET_ID VARCHAR(50), -- The ID of the physical asset (e.g., equipment, machinery) that the work order is for.
+                WORKFLOW_CODE VARCHAR(100), -- A code representing the process or sequence of steps for the work order.
+                WORK_ORDER_STATUS VARCHAR(100), -- The current state of the work order (e.g., 'In Progress', 'Completed', 'Canceled').
+                DUE_DATE DATE, -- The date by which the work order must be completed.
+                PRIORITY VARCHAR(5), -- The urgency level of the work order (e.g., '0', '1', '2').
+                CREATED_TIME DATE, -- The timestamp when the work order was created. Use this for queries related to creation date or time.
+                CREATED_BY VARCHAR(100), -- The person or system that created the work order.
+                LAST_MODIFIED_TIME DATE, -- The last time the work order was changed.
+                LAST_MODIFIED_BY VARCHAR(300), -- The person or system that last modified the work order.
+                WORK_ORDER_KEY VARCHAR(300),
+                INTERNAL_WORK_ORDER_ID VARCHAR(50),
+                DISTRIBUTION_NAME VARCHAR(300), -- The name of the group or team the work order was assigned to.
+                DISTRIBUTION_STATUS VARCHAR(300), -- The status of the work order's distribution.
+                DISTRIBUTION_TYPE VARCHAR(300), -- The type of distribution for the work order.
+                OPERATIONAL_GROUP_NAME VARCHAR(300), -- The name of the operational group responsible for the work order.
+                ASSIGNEE_NAME VARCHAR(300), -- The name of the individual assigned to perform the work.
+                ASSIGNEE_IS_ACTIVE VARCHAR(300), -- Indicates if the assigned person is currently active.
+                JOB_TYPE VARCHAR(300), -- The type of job or task the work order represents.
+                FACILITY VARCHAR(100), -- The physical building or location where the work is to be performed.
+                REGION_NAME VARCHAR(100), -- The geographical region of the work order.
+                WORK_ORDER_LANGUAGE VARCHAR(300), -- The language the work order is written in.
+                DISTRIBUTION_OPERATIONAL_REGION_ID VARCHAR(300), -- The Region id of Distribution Operational for the Work Order.
+                FACILITY_OPERATIONAL_REGION_ID VARCHAR(300), -- The Region id of Facility Operational for the Work Order.
+                OPERATIONAL_GRP_OPERATIONAL_REGION_ID VARCHAR(300),
+                ADDITIONAL_SERVICE_ID VARCHAR(300),
+                ADDITIONAL_SERVICE_NAME VARCHAR(300), -- The name of any extra service related to the work order.
+                ODS_UPDATE_DATE DATE, -- The date the record was last updated in the Operational Data Store.
+                MD5_HASH VARCHAR(100),
+                CONSTRAINT PK_WORK_ORDER PRIMARY KEY (WORK_ORDER_ID)
+                );",
+Work Orders,Show me the count of work orders by priority.,"SELECT PRIORITY, COUNT(*) FROM wo.DUPLO_WORK_ORDER GROUP BY PRIORITY","CREATE TABLE wo.DUPLO_WORK_ORDER (
+                WORK_ORDER_ID VARCHAR(50), -- A unique identifier for each work order. Use this for specific lookups.
+                ASSET_ID VARCHAR(50), -- The ID of the physical asset (e.g., equipment, machinery) that the work order is for.
+                WORKFLOW_CODE VARCHAR(100), -- A code representing the process or sequence of steps for the work order.
+                WORK_ORDER_STATUS VARCHAR(100), -- The current state of the work order (e.g., 'In Progress', 'Completed', 'Canceled').
+                DUE_DATE DATE, -- The date by which the work order must be completed.
+                PRIORITY VARCHAR(5), -- The urgency level of the work order (e.g., '0', '1', '2').
+                CREATED_TIME DATE, -- The timestamp when the work order was created. Use this for queries related to creation date or time.
+                CREATED_BY VARCHAR(100), -- The person or system that created the work order.
+                LAST_MODIFIED_TIME DATE, -- The last time the work order was changed.
+                LAST_MODIFIED_BY VARCHAR(300), -- The person or system that last modified the work order.
+                WORK_ORDER_KEY VARCHAR(300),
+                INTERNAL_WORK_ORDER_ID VARCHAR(50),
+                DISTRIBUTION_NAME VARCHAR(300), -- The name of the group or team the work order was assigned to.
+                DISTRIBUTION_STATUS VARCHAR(300), -- The status of the work order's distribution.
+                DISTRIBUTION_TYPE VARCHAR(300), -- The type of distribution for the work order.
+                OPERATIONAL_GROUP_NAME VARCHAR(300), -- The name of the operational group responsible for the work order.
+                ASSIGNEE_NAME VARCHAR(300), -- The name of the individual assigned to perform the work.
+                ASSIGNEE_IS_ACTIVE VARCHAR(300), -- Indicates if the assigned person is currently active.
+                JOB_TYPE VARCHAR(300), -- The type of job or task the work order represents.
+                FACILITY VARCHAR(100), -- The physical building or location where the work is to be performed.
+                REGION_NAME VARCHAR(100), -- The geographical region of the work order.
+                WORK_ORDER_LANGUAGE VARCHAR(300), -- The language the work order is written in.
+                DISTRIBUTION_OPERATIONAL_REGION_ID VARCHAR(300), -- The Region id of Distribution Operational for the Work Order.
+                FACILITY_OPERATIONAL_REGION_ID VARCHAR(300), -- The Region id of Facility Operational for the Work Order.
+                OPERATIONAL_GRP_OPERATIONAL_REGION_ID VARCHAR(300),
+                ADDITIONAL_SERVICE_ID VARCHAR(300),
+                ADDITIONAL_SERVICE_NAME VARCHAR(300), -- The name of any extra service related to the work order.
+                ODS_UPDATE_DATE DATE, -- The date the record was last updated in the Operational Data Store.
+                MD5_HASH VARCHAR(100),
+                CONSTRAINT PK_WORK_ORDER PRIMARY KEY (WORK_ORDER_ID)
+                );",
+Work Orders,List the work orders created in the last 30 days.,SELECT * FROM wo.DUPLO_WORK_ORDER WHERE CREATED_TIME >= CURRENT_DATE - INTERVAL '30 days',"CREATE TABLE wo.DUPLO_WORK_ORDER (
+                WORK_ORDER_ID VARCHAR(50), -- A unique identifier for each work order. Use this for specific lookups.
+                ASSET_ID VARCHAR(50), -- The ID of the physical asset (e.g., equipment, machinery) that the work order is for.
+                WORKFLOW_CODE VARCHAR(100), -- A code representing the process or sequence of steps for the work order.
+                WORK_ORDER_STATUS VARCHAR(100), -- The current state of the work order (e.g., 'In Progress', 'Completed', 'Canceled').
+                DUE_DATE DATE, -- The date by which the work order must be completed.
+                PRIORITY VARCHAR(5), -- The urgency level of the work order (e.g., '0', '1', '2').
+                CREATED_TIME DATE, -- The timestamp when the work order was created. Use this for queries related to creation date or time.
+                CREATED_BY VARCHAR(100), -- The person or system that created the work order.
+                LAST_MODIFIED_TIME DATE, -- The last time the work order was changed.
+                LAST_MODIFIED_BY VARCHAR(300), -- The person or system that last modified the work order.
+                WORK_ORDER_KEY VARCHAR(300),
+                INTERNAL_WORK_ORDER_ID VARCHAR(50),
+                DISTRIBUTION_NAME VARCHAR(300), -- The name of the group or team the work order was assigned to.
+                DISTRIBUTION_STATUS VARCHAR(300), -- The status of the work order's distribution.
+                DISTRIBUTION_TYPE VARCHAR(300), -- The type of distribution for the work order.
+                OPERATIONAL_GROUP_NAME VARCHAR(300), -- The name of the operational group responsible for the work order.
+                ASSIGNEE_NAME VARCHAR(300), -- The name of the individual assigned to perform the work.
+                ASSIGNEE_IS_ACTIVE VARCHAR(300), -- Indicates if the assigned person is currently active.
+                JOB_TYPE VARCHAR(300), -- The type of job or task the work order represents.
+                FACILITY VARCHAR(100), -- The physical building or location where the work is to be performed.
+                REGION_NAME VARCHAR(100), -- The geographical region of the work order.
+                WORK_ORDER_LANGUAGE VARCHAR(300), -- The language the work order is written in.
+                DISTRIBUTION_OPERATIONAL_REGION_ID VARCHAR(300), -- The Region id of Distribution Operational for the Work Order.
+                FACILITY_OPERATIONAL_REGION_ID VARCHAR(300), -- The Region id of Facility Operational for the Work Order.
+                OPERATIONAL_GRP_OPERATIONAL_REGION_ID VARCHAR(300),
+                ADDITIONAL_SERVICE_ID VARCHAR(300),
+                ADDITIONAL_SERVICE_NAME VARCHAR(300), -- The name of any extra service related to the work order.
+                ODS_UPDATE_DATE DATE, -- The date the record was last updated in the Operational Data Store.
+                MD5_HASH VARCHAR(100),
+                CONSTRAINT PK_WORK_ORDER PRIMARY KEY (WORK_ORDER_ID)
+                );",
+Work Orders,Find the work order with ID 'WO12345'.,SELECT * FROM wo.DUPLO_WORK_ORDER WHERE WORK_ORDER_ID = 'WO12345',"CREATE TABLE wo.DUPLO_WORK_ORDER (
+                WORK_ORDER_ID VARCHAR(50), -- A unique identifier for each work order. Use this for specific lookups.
+                ASSET_ID VARCHAR(50), -- The ID of the physical asset (e.g., equipment, machinery) that the work order is for.
+                WORKFLOW_CODE VARCHAR(100), -- A code representing the process or sequence of steps for the work order.
+                WORK_ORDER_STATUS VARCHAR(100), -- The current state of the work order (e.g., 'In Progress', 'Completed', 'Canceled').
+                DUE_DATE DATE, -- The date by which the work order must be completed.
+                PRIORITY VARCHAR(5), -- The urgency level of the work order (e.g., '0', '1', '2').
+                CREATED_TIME DATE, -- The timestamp when the work order was created. Use this for queries related to creation date or time.
+                CREATED_BY VARCHAR(100), -- The person or system that created the work order.
+                LAST_MODIFIED_TIME DATE, -- The last time the work order was changed.
+                LAST_MODIFIED_BY VARCHAR(300), -- The person or system that last modified the work order.
+                WORK_ORDER_KEY VARCHAR(300),
+                INTERNAL_WORK_ORDER_ID VARCHAR(50),
+                DISTRIBUTION_NAME VARCHAR(300), -- The name of the group or team the work order was assigned to.
+                DISTRIBUTION_STATUS VARCHAR(300), -- The status of the work order's distribution.
+                DISTRIBUTION_TYPE VARCHAR(300), -- The type of distribution for the work order.
+                OPERATIONAL_GROUP_NAME VARCHAR(300), -- The name of the operational group responsible for the work order.
+                ASSIGNEE_NAME VARCHAR(300), -- The name of the individual assigned to perform the work.
+                ASSIGNEE_IS_ACTIVE VARCHAR(300), -- Indicates if the assigned person is currently active.
+                JOB_TYPE VARCHAR(300), -- The type of job or task the work order represents.
+                FACILITY VARCHAR(100), -- The physical building or location where the work is to be performed.
+                REGION_NAME VARCHAR(100), -- The geographical region of the work order.
+                WORK_ORDER_LANGUAGE VARCHAR(300), -- The language the work order is written in.
+                DISTRIBUTION_OPERATIONAL_REGION_ID VARCHAR(300), -- The Region id of Distribution Operational for the Work Order.
+                FACILITY_OPERATIONAL_REGION_ID VARCHAR(300), -- The Region id of Facility Operational for the Work Order.
+                OPERATIONAL_GRP_OPERATIONAL_REGION_ID VARCHAR(300),
+                ADDITIONAL_SERVICE_ID VARCHAR(300),
+                ADDITIONAL_SERVICE_NAME VARCHAR(300), -- The name of any extra service related to the work order.
+                ODS_UPDATE_DATE DATE, -- The date the record was last updated in the Operational Data Store.
+                MD5_HASH VARCHAR(100),
+                CONSTRAINT PK_WORK_ORDER PRIMARY KEY (WORK_ORDER_ID)
+                );",
+Work Orders,Find distinct all the distinct ASSIGNEE NAME in work order.,SELECT distinct(ASSIGNEE_NAME) FROM wo.DUPLO_WORK_ORDER,"CREATE TABLE wo.DUPLO_WORK_ORDER (
+                WORK_ORDER_ID VARCHAR(50), -- A unique identifier for each work order. Use this for specific lookups.
+                ASSET_ID VARCHAR(50), -- The ID of the physical asset (e.g., equipment, machinery) that the work order is for.
+                WORKFLOW_CODE VARCHAR(100), -- A code representing the process or sequence of steps for the work order.
+                WORK_ORDER_STATUS VARCHAR(100), -- The current state of the work order (e.g., 'In Progress', 'Completed', 'Canceled').
+                DUE_DATE DATE, -- The date by which the work order must be completed.
+                PRIORITY VARCHAR(5), -- The urgency level of the work order (e.g., '0', '1', '2').
+                CREATED_TIME DATE, -- The timestamp when the work order was created. Use this for queries related to creation date or time.
+                CREATED_BY VARCHAR(100), -- The person or system that created the work order.
+                LAST_MODIFIED_TIME DATE, -- The last time the work order was changed.
+                LAST_MODIFIED_BY VARCHAR(300), -- The person or system that last modified the work order.
+                WORK_ORDER_KEY VARCHAR(300),
+                INTERNAL_WORK_ORDER_ID VARCHAR(50),
+                DISTRIBUTION_NAME VARCHAR(300), -- The name of the group or team the work order was assigned to.
+                DISTRIBUTION_STATUS VARCHAR(300), -- The status of the work order's distribution.
+                DISTRIBUTION_TYPE VARCHAR(300), -- The type of distribution for the work order.
+                OPERATIONAL_GROUP_NAME VARCHAR(300), -- The name of the operational group responsible for the work order.
+                ASSIGNEE_NAME VARCHAR(300), -- The name of the individual assigned to perform the work.
+                ASSIGNEE_IS_ACTIVE VARCHAR(300), -- Indicates if the assigned person is currently active.
+                JOB_TYPE VARCHAR(300), -- The type of job or task the work order represents.
+                FACILITY VARCHAR(100), -- The physical building or location where the work is to be performed.
+                REGION_NAME VARCHAR(100), -- The geographical region of the work order.
+                WORK_ORDER_LANGUAGE VARCHAR(300), -- The language the work order is written in.
+                DISTRIBUTION_OPERATIONAL_REGION_ID VARCHAR(300), -- The Region id of Distribution Operational for the Work Order.
+                FACILITY_OPERATIONAL_REGION_ID VARCHAR(300), -- The Region id of Facility Operational for the Work Order.
+                OPERATIONAL_GRP_OPERATIONAL_REGION_ID VARCHAR(300),
+                ADDITIONAL_SERVICE_ID VARCHAR(300),
+                ADDITIONAL_SERVICE_NAME VARCHAR(300), -- The name of any extra service related to the work order.
+                ODS_UPDATE_DATE DATE, -- The date the record was last updated in the Operational Data Store.
+                MD5_HASH VARCHAR(100),
+                CONSTRAINT PK_WORK_ORDER PRIMARY KEY (WORK_ORDER_ID)
+                );",
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,

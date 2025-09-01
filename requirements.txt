@@ -1,4 +1,4 @@
-ollama 
+#ollama 
 sentence-transformers
 faiss-cpu
 datasets
@@ -8,8 +8,9 @@ langchain_community
 huggingface_hub
 langchain
 sentence-transformers
-#fastapi[standard]
-streamlit
+fastapi[standard]
+#streamlit
 psycopg2-binary
 jproperties
 python-dotenv
+dynaconf
