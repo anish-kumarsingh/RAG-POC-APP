@@ -9,6 +9,8 @@ app:
     dimention: 768
     sample-dataset: 'static-files/text-sql-dataset.csv'
   prompt-file: 'static-files/prompt.txt'
+  chart-prompt-file: 'static-files/chart_prompt.txt'
+  sys-chart-prompt-file: 'static-files/system_chart_prompt.txt'
 local:
   db:
     host: 'localhost'

@@ -8,10 +8,12 @@ class PromptGenService:
         if cls._instance is None:
             cls._instance = super().__new__(cls)
         return cls._instance
-    def __init__(self, prompt_file:str):
+    def __init__(self, prompt_file:str, chart_prompt_file:str, sys_chart_prompt_file:str):
         if not hasattr(self , '_initialized'):
             self.file_service=file_service.FileService()
             self.template=self.file_service.loadTextFile(prompt_file)
+            self.chartPromptTemplate = self.file_service.loadTextFile(chart_prompt_file)
+            self.sysChartPromptFile = self.file_service.loadTextFile(sys_chart_prompt_file)
             self._initialized=True
             self.logger = logging.getLogger(__name__)
             self.logger.info("Initialized Prompt Gen.")
@@ -20,7 +22,7 @@ class PromptGenService:
         return self.__prepareContext__(input_query , documents)
     def __prepareContext__(self , input_query:str , documents : list[Document])->str:
         prompt = self.template.replace('__db_schema_definition__',documents[0].metadata['schema_context']).replace('__examples__','\n'.join([f' - {self.prep_doc(doc)}' for doc in documents])).replace('__input_query__', input_query)
-        self.logger.info('[Instruction Prompt] : $s', prompt)
+        self.logger.info('[Instruction Prompt] : %s', prompt)
         return prompt
     def __prepDocumentContext__(self , docuemnt:Document)->str:
         return (
@@ -32,5 +34,8 @@ class PromptGenService:
                 f"Example: {item.metadata['prompt']}\n"
                 f"Sql Query: {item.metadata['sql_query']}\n"
             )
-    def prepareChartPromt(self , headers:dict):
-        
+    def getSystemChartPrompt(self):
+        return self.sysChartPromptFile
+    def prepareChartPromt(self , headers:list[str])->str:
+        return self.chartPromptTemplate.replace('__headers__', ''.join([f'{header} , ' for header in headers]))
+
