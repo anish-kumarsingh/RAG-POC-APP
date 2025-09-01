@@ -1,41 +1,41 @@
 import streamlit as st
-
-from props import app_props
-import app
-from utility import app_constants
 import os
-from dotenv import load_dotenv
+import requests
+import pandas
+import plotly.express as px
+
 
 st.set_page_config(page_title="Welcome to AI Assistance.")
+st.title('MSC Genie')
+content_available=False
+df:pandas.DataFrame = None
+sql_query:str=None
+fig = None
 
-enable_error=False
-if "text_value" not in st.session_state:
-    st.session_state.text_value = ""
+def askQuestion(query:str):
+    global sql_query
+    sql_query = requests.get(f'http://localhost:8000/generate-sql?query={query}')
+    fetchResult(sql_query=sql_query)
 
-if "error_text_value" not in st.session_state:
-    st.session_state.error_text_value = ""
-if enable_error:
-    st.write(st.session_state.error_text_value)
+def fetchResult(sql_query:str):
+    data = requests.get(f'http://localhost:8000/fetch-results?query={sql_query}')
+    df=pandas.read_json(data['data'])
+    global fig
+    fig = px.bar(
+        df,
+        x=data['chart-configs']['layout']['xaxis']['title'],
+        y=data['chart-configs']['layout']['yaxis']['title'],
+        title=data['chart-configs']['layout']['title']
+    )
+    global content_available
+    content_available = True
 
-tab1 , tab2 = st.tabs(["Data Frame", "Charts"])
-user_query=st.text_input(label="Assitant",placeholder="Ask me something.", value=st.session_state.text_value)
-if st.button("Submit"):
-    print(f"User input: {user_query}")
-    st.session_state.text_value=""
-    st.session_state.error_text_value=""
-    enable_error=False
-    sql_query:str = app.processAgentRequst(user_query)
-    print(f"Returned query: {sql_query}")
-    if sql_query is not None and sql_query.strip().lower().startswith("select"):
-        dataFrame = data_access.executeQuery(sql_query)
-        print(f"Got response from db:{dataFrame}")
-        enable_tabs=True
-        tab1.dataframe(dataFrame, height=250, use_container_width=True)
-        tab1.bar_chart(dataFrame, y=['created_time'], x='due_date', height=250, use_container_width=True)
-    else :
-        st.session_state.error_text_value=sql_query
-        enable_error=True
-
-
+with st.container:
+    if content_available : 
+        st.text_area("SQL", sql_query, height=150)
+        st.dataframe(df)
+        st.plotly_chart(fig)
+        st.text_input(placeholder="MSC Genie at your Service! Ask your query.")
+    st.button('Ask',on_click=askQuestion())
 
 

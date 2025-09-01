@@ -1,10 +1,1 @@
-Generate a complete Plotly chart configuration in JSON format.
-
-The dataset has the following column headers:
-[ __headers__ ]
-
-Your task is to:
-1.  Analyze the provided headers to determine the most meaningful relationship or trend that can be visualized.
-2.  Choose the most appropriate chart type (e.g., bar chart, line chart, scatter plot, etc.) to represent this relationship.
-3.  Select the correct columns for the x-axis, y-axis, and any other relevant chart properties (like color or hover text).
-4.  Generate a complete Plotly JSON object for the chart, including a descriptive title and appropriate axis labels based on your column choices.
+Generate a Plotly chart configuration in JSON format for the following headers: `[__headers__]`.

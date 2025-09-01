@@ -9,8 +9,9 @@ huggingface_hub
 langchain
 sentence-transformers
 fastapi[standard]
-#streamlit
+streamlit
 psycopg2-binary
 jproperties
 python-dotenv
 dynaconf
+plotly

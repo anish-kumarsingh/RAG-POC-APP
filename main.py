@@ -16,8 +16,9 @@ fastApp = FastAPI()
 rag = app.App()
 
 @fastApp.get("/generate-sql")
-def generate_sql(query:str)->str:
-    return rag.generateSql(query)
+def generate_sql(query:str):
+    sql=rag.generateSql(query)
+    return {"sql_query":sql}
 
 @fastApp.get("/fetch-results")
 def executeSql(query:str):
