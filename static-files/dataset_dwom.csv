@@ -1,0 +1,67 @@
+domain,sql_prompt,sql,sql_context
+Work Orders,Show me all the work order metadata that haven't been modified since they were created,SELECT * FROM DUPLO_WORK_ORDER_METADATA WHERE CREATED_TIME = LAST_MODIFIED_TIME;,"create or replace TABLE DUPLO_WORK_ORDER_METADATA (
+                    WORK_ORDER_ID VARCHAR(50), --Uniquely identifies a work order
+                    WORK_ORDER_METADATA_TYPE VARCHAR(50), --Defines the types of work order metadata (eg. 'includeApproval','includeTrackScript','language', etc.)
+                    WORK_ORDER_METADATA_VALUE VARCHAR(300), --Tells the value corresponding to each metadata type (eg. 'true', 'false', NULL, etc.)
+                    CREATED_TIME DATE, --Tells the time when this metadata was created
+                    CREATED_BY VARCHAR(100), --Tells who is the creator of this work order (eg. 'Airings Event', 'System', etc.)
+                    LAST_MODIFIED_TIME DATE, --Tells what time this work order was last updated/modified
+                    LAST_MODIFIED_BY VARCHAR(100), --Tells who modified this work order (eg. 'stg_source_insert')
+                    ODS_UPDATE_DATE DATE, --Tells us the when it was updated in ods
+                    MD5_HASH VARCHAR(100)
+                );"
+Work Orders,Show me the metadata of all the work orders that have been modified but not updated in the ods,SELECT * FROM DUPLO_WORK_ORDER_METADATA WHERE ODS_UPDATE_DATE < LAST_MODIFIED_TIME;,"create or replace TABLE DUPLO_WORK_ORDER_METADATA (
+                    WORK_ORDER_ID VARCHAR(50), --Uniquely identifies a work order
+                    WORK_ORDER_METADATA_TYPE VARCHAR(50), --Defines the types of work order metadata (eg. 'includeApproval','includeTrackScript','language', etc.)
+                    WORK_ORDER_METADATA_VALUE VARCHAR(300), --Tells the value corresponding to each metadata type (eg. 'true', 'false', NULL, etc.)
+                    CREATED_TIME DATE, --Tells the time when this metadata was created
+                    CREATED_BY VARCHAR(100), --Tells who is the creator of this work order (eg. 'Airings Event', 'System', etc.)
+                    LAST_MODIFIED_TIME DATE, --Tells what time this work order was last updated/modified
+                    LAST_MODIFIED_BY VARCHAR(100), --Tells who modified this work order (eg. 'stg_source_insert')
+                    ODS_UPDATE_DATE DATE, --Tells us the when it was updated in ods
+                    MD5_HASH VARCHAR(100)
+                );"
+Work Orders,Give me the metadata of all the work orders that are awaiting response in DM,SELECT * FROM DUPLO_WORK_ORDER_METADATA WHERE WORK_ORDER_METADATA_VALUE = 'Waiting for DM Update';,"create or replace TABLE DUPLO_WORK_ORDER_METADATA (
+                    WORK_ORDER_ID VARCHAR(50), --Uniquely identifies a work order
+                    WORK_ORDER_METADATA_TYPE VARCHAR(50), --Defines the types of work order metadata (eg. 'includeApproval','includeTrackScript','language', etc.)
+                    WORK_ORDER_METADATA_VALUE VARCHAR(300), --Tells the value corresponding to each metadata type (eg. 'true', 'false', NULL, etc.)
+                    CREATED_TIME DATE, --Tells the time when this metadata was created
+                    CREATED_BY VARCHAR(100), --Tells who is the creator of this work order (eg. 'Airings Event', 'System', etc.)
+                    LAST_MODIFIED_TIME DATE, --Tells what time this work order was last updated/modified
+                    LAST_MODIFIED_BY VARCHAR(100), --Tells who modified this work order (eg. 'stg_source_insert')
+                    ODS_UPDATE_DATE DATE, --Tells us the when it was updated in ods
+                    MD5_HASH VARCHAR(100)
+                );"
+Work Orders,List the metadata of all the work orders in which approval is mandatory,SELECT * FROM DUPLO_WORK_ORDER_METADATA WHERE WORK_ORDER_METADATA_TYPE='includeApproval' AND WORK_ORDER_METADATA_VALUE='true';,"create or replace TABLE DUPLO_WORK_ORDER_METADATA (
+                    WORK_ORDER_ID VARCHAR(50), --Uniquely identifies a work order
+                    WORK_ORDER_METADATA_TYPE VARCHAR(50), --Defines the types of work order metadata (eg. 'includeApproval','includeTrackScript','language', etc.)
+                    WORK_ORDER_METADATA_VALUE VARCHAR(300), --Tells the value corresponding to each metadata type (eg. 'true', 'false', NULL, etc.)
+                    CREATED_TIME DATE, --Tells the time when this metadata was created
+                    CREATED_BY VARCHAR(100), --Tells who is the creator of this work order (eg. 'Airings Event', 'System', etc.)
+                    LAST_MODIFIED_TIME DATE, --Tells what time this work order was last updated/modified
+                    LAST_MODIFIED_BY VARCHAR(100), --Tells who modified this work order (eg. 'stg_source_insert')
+                    ODS_UPDATE_DATE DATE, --Tells us the when it was updated in ods
+                    MD5_HASH VARCHAR(100)
+                );"
+Work Orders,Give metadata details of all the work orders in which including Track Script is required,SELECT * FROM DUPLO_WORK_ORDER_METADATA WHERE WORK_ORDER_METADATA_TYPE='includeTrackScript' AND WORK_ORDER_METADATA_VALUE='true';,"create or replace TABLE DUPLO_WORK_ORDER_METADATA (
+                    WORK_ORDER_ID VARCHAR(50), --Uniquely identifies a work order
+                    WORK_ORDER_METADATA_TYPE VARCHAR(50), --Defines the types of work order metadata (eg. 'includeApproval','includeTrackScript','language', etc.)
+                    WORK_ORDER_METADATA_VALUE VARCHAR(300), --Tells the value corresponding to each metadata type (eg. 'true', 'false', NULL, etc.)
+                    CREATED_TIME DATE, --Tells the time when this metadata was created
+                    CREATED_BY VARCHAR(100), --Tells who is the creator of this work order (eg. 'Airings Event', 'System', etc.)
+                    LAST_MODIFIED_TIME DATE, --Tells what time this work order was last updated/modified
+                    LAST_MODIFIED_BY VARCHAR(100), --Tells who modified this work order (eg. 'stg_source_insert')
+                    ODS_UPDATE_DATE DATE, --Tells us the when it was updated in ods
+                    MD5_HASH VARCHAR(100)
+                );"
+Work Orders,Give list of the metadata of all the work orders which has no update,SELECT * FROM DUPLO_WORK_ORDER_METADATA WHERE WORK_ORDER_METADATA_VALUE IS NULL;,"create or replace TABLE DUPLO_WORK_ORDER_METADATA (
+                    WORK_ORDER_ID VARCHAR(50), --Uniquely identifies a work order
+                    WORK_ORDER_METADATA_TYPE VARCHAR(50), --Defines the types of work order metadata (eg. 'includeApproval','includeTrackScript','language', etc.)
+                    WORK_ORDER_METADATA_VALUE VARCHAR(300), --Tells the value corresponding to each metadata type (eg. 'true', 'false', NULL, etc.)
+                    CREATED_TIME DATE, --Tells the time when this metadata was created
+                    CREATED_BY VARCHAR(100), --Tells who is the creator of this work order (eg. 'Airings Event', 'System', etc.)
+                    LAST_MODIFIED_TIME DATE, --Tells what time this work order was last updated/modified
+                    LAST_MODIFIED_BY VARCHAR(100), --Tells who modified this work order (eg. 'stg_source_insert')
+                    ODS_UPDATE_DATE DATE, --Tells us the when it was updated in ods
+                    MD5_HASH VARCHAR(100)
+                );"
