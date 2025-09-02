@@ -75,6 +75,6 @@ def updateChart(df):
 col_input, col_button = st.columns([0.9, 0.1])
 input_query: str=None
 with col_input:
-    input_query=st.text_input(label="Query",placeholder="MSC Genie at your Service! Ask your query.")
+    input_query=st.text_input(label="Query",placeholder="MSC Genie at your Service! Ask your query.", label_visibility="hidden")
 with col_button:
-    st.button('Ask',on_click=askQuestion(input_query))
+    st.button(label='Ask', type="primary",on_click=askQuestion(input_query))
