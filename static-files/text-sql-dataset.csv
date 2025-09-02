@@ -159,21 +159,447 @@ Work Orders,Find distinct all the distinct ASSIGNEE NAME in work order.,SELECT d
                 MD5_HASH VARCHAR(100),
                 CONSTRAINT PK_WORK_ORDER PRIMARY KEY (WORK_ORDER_ID)
                 );",
-,,,,
-,,,,
-,,,,
-,,,,
-,,,,
-,,,,
-,,,,
-,,,,
-,,,,
-,,,,
-,,,,
-,,,,
-,,,,
-,,,,
-,,,,
-,,,,
+Work Order Metadata,List all unique work order metadata types.,SELECT DISTINCT wo.WORK_ORDER_METADATA_TYPE FROM DUPLO_WORK_ORDER_METADATA,"create TABLE wo.DUPLO_WORK_ORDER_METADATA (
+	WORK_ORDER_ID VARCHAR(50), --The unique ID for a work order metadata.
+	WORK_ORDER_METADATA_TYPE VARCHAR(50), -- The ""key"" or category of data (e.g., 'SCRID', 'language').
+	WORK_ORDER_METADATA_VALUE VARCHAR(300), -- The ""value"" or the content of the data.
+	CREATED_TIME DATE, -- When it was created
+	CREATED_BY VARCHAR(100), -- Who created it
+	LAST_MODIFIED_TIME DATE,
+	LAST_MODIFIED_BY VARCHAR(100),
+	ODS_UPDATE_DATE DATE, -- A technical timestamp for data synchronization with a data warehouse.
+	MD5_HASH VARCHAR(100)
+);",
+Work Order Metadata,"Find all work orders metdata created after June 1st, 2024.",SELECT * FROM wo.DUPLO_WORK_ORDER_METADATA WHERE CREATED_TIME > '2024-06-01',"create TABLE wo.DUPLO_WORK_ORDER_METADATA (
+	WORK_ORDER_ID VARCHAR(50), --The unique ID for a work order metadata.
+	WORK_ORDER_METADATA_TYPE VARCHAR(50), -- The ""key"" or category of data (e.g., 'SCRID', 'language').
+	WORK_ORDER_METADATA_VALUE VARCHAR(300), -- The ""value"" or the content of the data.
+	CREATED_TIME DATE, -- When it was created
+	CREATED_BY VARCHAR(100), -- Who created it
+	LAST_MODIFIED_TIME DATE,
+	LAST_MODIFIED_BY VARCHAR(100),
+	ODS_UPDATE_DATE DATE, -- A technical timestamp for data synchronization with a data warehouse.
+	MD5_HASH VARCHAR(100)
+);",
+Work Order Metadata,Count how many work orders  exist for each metadata type.,"SELECT WORK_ORDER_METADATA_TYPE, COUNT(*) FROM wo.DUPLO_WORK_ORDER_METADATA GROUP BY WORK_ORDER_METADATA_TYPE","create TABLE wo.DUPLO_WORK_ORDER_METADATA (
+	WORK_ORDER_ID VARCHAR(50), --The unique ID for a work order metadata.
+	WORK_ORDER_METADATA_TYPE VARCHAR(50), -- The ""key"" or category of data (e.g., 'SCRID', 'language').
+	WORK_ORDER_METADATA_VALUE VARCHAR(300), -- The ""value"" or the content of the data.
+	CREATED_TIME DATE, -- When it was created
+	CREATED_BY VARCHAR(100), -- Who created it
+	LAST_MODIFIED_TIME DATE,
+	LAST_MODIFIED_BY VARCHAR(100),
+	ODS_UPDATE_DATE DATE, -- A technical timestamp for data synchronization with a data warehouse.
+	MD5_HASH VARCHAR(100)
+);",
+Work Order Metadata,Show me work orders  metadata created by 'johndoe' where the metadata value is 'Critical'.,SELECT * FROM wo.DUPLO_WORK_ORDER_METADATA WHERE CREATED_BY = 'johndoe' AND WORK_ORDER_METADATA_VALUE = 'Critical',"create TABLE wo.DUPLO_WORK_ORDER_METADATA (
+	WORK_ORDER_ID VARCHAR(50), --The unique ID for a work order metadata.
+	WORK_ORDER_METADATA_TYPE VARCHAR(50), -- The ""key"" or category of data (e.g., 'SCRID', 'language').
+	WORK_ORDER_METADATA_VALUE VARCHAR(300), -- The ""value"" or the content of the data.
+	CREATED_TIME DATE, -- When it was created
+	CREATED_BY VARCHAR(100), -- Who created it
+	LAST_MODIFIED_TIME DATE,
+	LAST_MODIFIED_BY VARCHAR(100),
+	ODS_UPDATE_DATE DATE, -- A technical timestamp for data synchronization with a data warehouse.
+	MD5_HASH VARCHAR(100)
+);",
+Work Order Metadata,Find all work orders metdata where the ID begins with 'DUPLO'.,SELECT * FROM wo.DUPLO_WORK_ORDER_METADATA WHERE WORK_ORDER_ID LIKE 'DUPLO%',"create TABLE wo.DUPLO_WORK_ORDER_METADATA (
+	WORK_ORDER_ID VARCHAR(50), --The unique ID for a work order metadata.
+	WORK_ORDER_METADATA_TYPE VARCHAR(50), -- The ""key"" or category of data (e.g., 'SCRID', 'language').
+	WORK_ORDER_METADATA_VALUE VARCHAR(300), -- The ""value"" or the content of the data.
+	CREATED_TIME DATE, -- When it was created
+	CREATED_BY VARCHAR(100), -- Who created it
+	LAST_MODIFIED_TIME DATE,
+	LAST_MODIFIED_BY VARCHAR(100),
+	ODS_UPDATE_DATE DATE, -- A technical timestamp for data synchronization with a data warehouse.
+	MD5_HASH VARCHAR(100)
+);",
+Work Order Metadata,What is the most recent update date for each work order metadata?,"SELECT WORK_ORDER_ID, MAX(ODS_UPDATE_DATE) AS LatestUpdate FROM wo.DUPLO_WORK_ORDER_METADATA GROUP BY WORK_ORDER_ID","create TABLE wo.DUPLO_WORK_ORDER_METADATA (
+	WORK_ORDER_ID VARCHAR(50), --The unique ID for a work order metadata.
+	WORK_ORDER_METADATA_TYPE VARCHAR(50), -- The ""key"" or category of data (e.g., 'SCRID', 'language').
+	WORK_ORDER_METADATA_VALUE VARCHAR(300), -- The ""value"" or the content of the data.
+	CREATED_TIME DATE, -- When it was created
+	CREATED_BY VARCHAR(100), -- Who created it
+	LAST_MODIFIED_TIME DATE,
+	LAST_MODIFIED_BY VARCHAR(100),
+	ODS_UPDATE_DATE DATE, -- A technical timestamp for data synchronization with a data warehouse.
+	MD5_HASH VARCHAR(100)
+);",
+Work Order Metadata,Provide a count of work orders metatdata for each user that created them.,"SELECT CREATED_BY, COUNT(*) FROM wo.DUPLO_WORK_ORDER_METADATA GROUP BY CREATED_BY","create TABLE wo.DUPLO_WORK_ORDER_METADATA (
+	WORK_ORDER_ID VARCHAR(50), --The unique ID for a work order metadata.
+	WORK_ORDER_METADATA_TYPE VARCHAR(50), -- The ""key"" or category of data (e.g., 'SCRID', 'language').
+	WORK_ORDER_METADATA_VALUE VARCHAR(300), -- The ""value"" or the content of the data.
+	CREATED_TIME DATE, -- When it was created
+	CREATED_BY VARCHAR(100), -- Who created it
+	LAST_MODIFIED_TIME DATE,
+	LAST_MODIFIED_BY VARCHAR(100),
+	ODS_UPDATE_DATE DATE, -- A technical timestamp for data synchronization with a data warehouse.
+	MD5_HASH VARCHAR(100)
+);",
+Work Order Metadata,What are the earliest and latest creation times for each metadata work order  ID?,"SELECT WORK_ORDER_ID, MIN(CREATED_TIME) AS FirstCreated, MAX(CREATED_TIME) AS LastModified FROM wo.DUPLO_WORK_ORDER_METADATA GROUP BY WORK_ORDER_ID","create TABLE wo.DUPLO_WORK_ORDER_METADATA (
+	WORK_ORDER_ID VARCHAR(50), --The unique ID for a work order metadata.
+	WORK_ORDER_METADATA_TYPE VARCHAR(50), -- The ""key"" or category of data (e.g., 'SCRID', 'language').
+	WORK_ORDER_METADATA_VALUE VARCHAR(300), -- The ""value"" or the content of the data.
+	CREATED_TIME DATE, -- When it was created
+	CREATED_BY VARCHAR(100), -- Who created it
+	LAST_MODIFIED_TIME DATE,
+	LAST_MODIFIED_BY VARCHAR(100),
+	ODS_UPDATE_DATE DATE, -- A technical timestamp for data synchronization with a data warehouse.
+	MD5_HASH VARCHAR(100)
+);",
+Work Order Metadata,Count the number of different metadata types created by each user.,"SELECT CREATED_BY, COUNT(DISTINCT WORK_ORDER_METADATA_TYPE) FROM DUPLO_WORK_ORDER_METADATA GROUP BY CREATED_BY","create TABLE wo.DUPLO_WORK_ORDER_METADATA (
+	WORK_ORDER_ID VARCHAR(50), --The unique ID for a work order metadata.
+	WORK_ORDER_METADATA_TYPE VARCHAR(50), -- The ""key"" or category of data (e.g., 'SCRID', 'language').
+	WORK_ORDER_METADATA_VALUE VARCHAR(300), -- The ""value"" or the content of the data.
+	CREATED_TIME DATE, -- When it was created
+	CREATED_BY VARCHAR(100), -- Who created it
+	LAST_MODIFIED_TIME DATE,
+	LAST_MODIFIED_BY VARCHAR(100),
+	ODS_UPDATE_DATE DATE, -- A technical timestamp for data synchronization with a data warehouse.
+	MD5_HASH VARCHAR(100)
+);",
+,Show me the distribution name and assignee name for all work orders with a metadata type of 'SCRID'.,"SELECT t1.DISTRIBUTION_NAME, t1.ASSIGNEE_NAME FROM wo.DUPLO_WORK_ORDER t1 JOIN wo.DUPLO_WORK_ORDER_METADATA t2 ON t1.WORK_ORDER_ID = t2.WORK_ORDER_ID WHERE t2.WORK_ORDER_METADATA_TYPE = 'SCRID'","CREATE TABLE wo.DUPLO_WORK_ORDER (
+                WORK_ORDER_ID VARCHAR(50), -- A unique identifier for each work order. Use this for specific lookups.
+                ASSET_ID VARCHAR(50), -- The ID of the physical asset (e.g., equipment, machinery) that the work order is for.
+                WORKFLOW_CODE VARCHAR(100), -- A code representing the process or sequence of steps for the work order.
+                WORK_ORDER_STATUS VARCHAR(100), -- The current state of the work order (e.g., 'In Progress', 'Completed', 'Canceled').
+                DUE_DATE DATE, -- The date by which the work order must be completed.
+                PRIORITY VARCHAR(5), -- The urgency level of the work order (e.g., '0', '1', '2').
+                CREATED_TIME DATE, -- The timestamp when the work order was created. Use this for queries related to creation date or time.
+                CREATED_BY VARCHAR(100), -- The person or system that created the work order.
+                LAST_MODIFIED_TIME DATE, -- The last time the work order was changed.
+                LAST_MODIFIED_BY VARCHAR(300), -- The person or system that last modified the work order.
+                WORK_ORDER_KEY VARCHAR(300),
+                INTERNAL_WORK_ORDER_ID VARCHAR(50),
+                DISTRIBUTION_NAME VARCHAR(300), -- The name of the group or team the work order was assigned to.
+                DISTRIBUTION_STATUS VARCHAR(300), -- The status of the work order's distribution.
+                DISTRIBUTION_TYPE VARCHAR(300), -- The type of distribution for the work order.
+                OPERATIONAL_GROUP_NAME VARCHAR(300), -- The name of the operational group responsible for the work order.
+                ASSIGNEE_NAME VARCHAR(300), -- The name of the individual assigned to perform the work.
+                ASSIGNEE_IS_ACTIVE VARCHAR(300), -- Indicates if the assigned person is currently active.
+                JOB_TYPE VARCHAR(300), -- The type of job or task the work order represents.
+                FACILITY VARCHAR(100), -- The physical building or location where the work is to be performed.
+                REGION_NAME VARCHAR(100), -- The geographical region of the work order.
+                WORK_ORDER_LANGUAGE VARCHAR(300), -- The language the work order is written in.
+                DISTRIBUTION_OPERATIONAL_REGION_ID VARCHAR(300), -- The Region id of Distribution Operational for the Work Order.
+                FACILITY_OPERATIONAL_REGION_ID VARCHAR(300), -- The Region id of Facility Operational for the Work Order.
+                OPERATIONAL_GRP_OPERATIONAL_REGION_ID VARCHAR(300),
+                ADDITIONAL_SERVICE_ID VARCHAR(300),
+                ADDITIONAL_SERVICE_NAME VARCHAR(300), -- The name of any extra service related to the work order.
+                ODS_UPDATE_DATE DATE, -- The date the record was last updated in the Operational Data Store.
+                MD5_HASH VARCHAR(100),
+                CONSTRAINT PK_WORK_ORDER PRIMARY KEY (WORK_ORDER_ID)
+                );
+
+create TABLE wo.DUPLO_WORK_ORDER_METADATA (
+	WORK_ORDER_ID VARCHAR(50), --The unique ID for a work order metadata.
+	WORK_ORDER_METADATA_TYPE VARCHAR(50), -- The ""key"" or category of data (e.g., 'SCRID', 'language').
+	WORK_ORDER_METADATA_VALUE VARCHAR(300), -- The ""value"" or the content of the data.
+	CREATED_TIME DATE, -- When it was created
+	CREATED_BY VARCHAR(100), -- Who created it
+	LAST_MODIFIED_TIME DATE,
+	LAST_MODIFIED_BY VARCHAR(100),
+	ODS_UPDATE_DATE DATE, -- A technical timestamp for data synchronization with a data warehouse.
+	MD5_HASH VARCHAR(100)
+);
+
+
+Understand Relationships between above tables : 
+   wo.DUPLO_WORK_ORDER.WORK_ORDER_ID = wo.DUPLO_WORK_ORDER_METADATA.WORK_ORDER_ID
+",
+,Count how many work orders are in 'In Progress' status and have a metadata type of 'Language'.,SELECT COUNT(*) FROM wo.DUPLO_WORK_ORDER t1 JOIN wo.DUPLO_WORK_ORDER_METADATA t2 ON t1.WORK_ORDER_ID = t2.WORK_ORDER_ID WHERE t1.WORK_ORDER_STATUS = 'In Progress' AND t2.WORK_ORDER_METADATA_TYPE = 'Language',"CREATE TABLE wo.DUPLO_WORK_ORDER (
+                WORK_ORDER_ID VARCHAR(50), -- A unique identifier for each work order. Use this for specific lookups.
+                ASSET_ID VARCHAR(50), -- The ID of the physical asset (e.g., equipment, machinery) that the work order is for.
+                WORKFLOW_CODE VARCHAR(100), -- A code representing the process or sequence of steps for the work order.
+                WORK_ORDER_STATUS VARCHAR(100), -- The current state of the work order (e.g., 'In Progress', 'Completed', 'Canceled').
+                DUE_DATE DATE, -- The date by which the work order must be completed.
+                PRIORITY VARCHAR(5), -- The urgency level of the work order (e.g., '0', '1', '2').
+                CREATED_TIME DATE, -- The timestamp when the work order was created. Use this for queries related to creation date or time.
+                CREATED_BY VARCHAR(100), -- The person or system that created the work order.
+                LAST_MODIFIED_TIME DATE, -- The last time the work order was changed.
+                LAST_MODIFIED_BY VARCHAR(300), -- The person or system that last modified the work order.
+                WORK_ORDER_KEY VARCHAR(300),
+                INTERNAL_WORK_ORDER_ID VARCHAR(50),
+                DISTRIBUTION_NAME VARCHAR(300), -- The name of the group or team the work order was assigned to.
+                DISTRIBUTION_STATUS VARCHAR(300), -- The status of the work order's distribution.
+                DISTRIBUTION_TYPE VARCHAR(300), -- The type of distribution for the work order.
+                OPERATIONAL_GROUP_NAME VARCHAR(300), -- The name of the operational group responsible for the work order.
+                ASSIGNEE_NAME VARCHAR(300), -- The name of the individual assigned to perform the work.
+                ASSIGNEE_IS_ACTIVE VARCHAR(300), -- Indicates if the assigned person is currently active.
+                JOB_TYPE VARCHAR(300), -- The type of job or task the work order represents.
+                FACILITY VARCHAR(100), -- The physical building or location where the work is to be performed.
+                REGION_NAME VARCHAR(100), -- The geographical region of the work order.
+                WORK_ORDER_LANGUAGE VARCHAR(300), -- The language the work order is written in.
+                DISTRIBUTION_OPERATIONAL_REGION_ID VARCHAR(300), -- The Region id of Distribution Operational for the Work Order.
+                FACILITY_OPERATIONAL_REGION_ID VARCHAR(300), -- The Region id of Facility Operational for the Work Order.
+                OPERATIONAL_GRP_OPERATIONAL_REGION_ID VARCHAR(300),
+                ADDITIONAL_SERVICE_ID VARCHAR(300),
+                ADDITIONAL_SERVICE_NAME VARCHAR(300), -- The name of any extra service related to the work order.
+                ODS_UPDATE_DATE DATE, -- The date the record was last updated in the Operational Data Store.
+                MD5_HASH VARCHAR(100),
+                CONSTRAINT PK_WORK_ORDER PRIMARY KEY (WORK_ORDER_ID)
+                );
+
+create TABLE wo.DUPLO_WORK_ORDER_METADATA (
+	WORK_ORDER_ID VARCHAR(50), --The unique ID for a work order metadata.
+	WORK_ORDER_METADATA_TYPE VARCHAR(50), -- The ""key"" or category of data (e.g., 'SCRID', 'language').
+	WORK_ORDER_METADATA_VALUE VARCHAR(300), -- The ""value"" or the content of the data.
+	CREATED_TIME DATE, -- When it was created
+	CREATED_BY VARCHAR(100), -- Who created it
+	LAST_MODIFIED_TIME DATE,
+	LAST_MODIFIED_BY VARCHAR(100),
+	ODS_UPDATE_DATE DATE, -- A technical timestamp for data synchronization with a data warehouse.
+	MD5_HASH VARCHAR(100)
+);
+
+
+Understand Relationships between above tables : 
+   wo.DUPLO_WORK_ORDER.WORK_ORDER_ID = wo.DUPLO_WORK_ORDER_METADATA.WORK_ORDER_ID
+",
+,"For each operational group, count the number of work orders that have a metadata value of 'High Priority'.","SELECT t1.OPERATIONAL_GROUP_NAME, COUNT(t1.WORK_ORDER_ID) FROM wo.DUPLO_WORK_ORDER t1 JOIN wo.DUPLO_WORK_ORDER_METADATA t2 ON t1.WORK_ORDER_ID = t2.WORK_ORDER_ID WHERE t2.WORK_ORDER_METADATA_VALUE = 'High Priority' GROUP BY t1.OPERATIONAL_GROUP_NAME","CREATE TABLE wo.DUPLO_WORK_ORDER (
+                WORK_ORDER_ID VARCHAR(50), -- A unique identifier for each work order. Use this for specific lookups.
+                ASSET_ID VARCHAR(50), -- The ID of the physical asset (e.g., equipment, machinery) that the work order is for.
+                WORKFLOW_CODE VARCHAR(100), -- A code representing the process or sequence of steps for the work order.
+                WORK_ORDER_STATUS VARCHAR(100), -- The current state of the work order (e.g., 'In Progress', 'Completed', 'Canceled').
+                DUE_DATE DATE, -- The date by which the work order must be completed.
+                PRIORITY VARCHAR(5), -- The urgency level of the work order (e.g., '0', '1', '2').
+                CREATED_TIME DATE, -- The timestamp when the work order was created. Use this for queries related to creation date or time.
+                CREATED_BY VARCHAR(100), -- The person or system that created the work order.
+                LAST_MODIFIED_TIME DATE, -- The last time the work order was changed.
+                LAST_MODIFIED_BY VARCHAR(300), -- The person or system that last modified the work order.
+                WORK_ORDER_KEY VARCHAR(300),
+                INTERNAL_WORK_ORDER_ID VARCHAR(50),
+                DISTRIBUTION_NAME VARCHAR(300), -- The name of the group or team the work order was assigned to.
+                DISTRIBUTION_STATUS VARCHAR(300), -- The status of the work order's distribution.
+                DISTRIBUTION_TYPE VARCHAR(300), -- The type of distribution for the work order.
+                OPERATIONAL_GROUP_NAME VARCHAR(300), -- The name of the operational group responsible for the work order.
+                ASSIGNEE_NAME VARCHAR(300), -- The name of the individual assigned to perform the work.
+                ASSIGNEE_IS_ACTIVE VARCHAR(300), -- Indicates if the assigned person is currently active.
+                JOB_TYPE VARCHAR(300), -- The type of job or task the work order represents.
+                FACILITY VARCHAR(100), -- The physical building or location where the work is to be performed.
+                REGION_NAME VARCHAR(100), -- The geographical region of the work order.
+                WORK_ORDER_LANGUAGE VARCHAR(300), -- The language the work order is written in.
+                DISTRIBUTION_OPERATIONAL_REGION_ID VARCHAR(300), -- The Region id of Distribution Operational for the Work Order.
+                FACILITY_OPERATIONAL_REGION_ID VARCHAR(300), -- The Region id of Facility Operational for the Work Order.
+                OPERATIONAL_GRP_OPERATIONAL_REGION_ID VARCHAR(300),
+                ADDITIONAL_SERVICE_ID VARCHAR(300),
+                ADDITIONAL_SERVICE_NAME VARCHAR(300), -- The name of any extra service related to the work order.
+                ODS_UPDATE_DATE DATE, -- The date the record was last updated in the Operational Data Store.
+                MD5_HASH VARCHAR(100),
+                CONSTRAINT PK_WORK_ORDER PRIMARY KEY (WORK_ORDER_ID)
+                );
+
+create TABLE wo.DUPLO_WORK_ORDER_METADATA (
+	WORK_ORDER_ID VARCHAR(50), --The unique ID for a work order metadata.
+	WORK_ORDER_METADATA_TYPE VARCHAR(50), -- The ""key"" or category of data (e.g., 'SCRID', 'language').
+	WORK_ORDER_METADATA_VALUE VARCHAR(300), -- The ""value"" or the content of the data.
+	CREATED_TIME DATE, -- When it was created
+	CREATED_BY VARCHAR(100), -- Who created it
+	LAST_MODIFIED_TIME DATE,
+	LAST_MODIFIED_BY VARCHAR(100),
+	ODS_UPDATE_DATE DATE, -- A technical timestamp for data synchronization with a data warehouse.
+	MD5_HASH VARCHAR(100)
+);
+
+
+Understand Relationships between above tables : 
+   wo.DUPLO_WORK_ORDER.WORK_ORDER_ID = wo.DUPLO_WORK_ORDER_METADATA.WORK_ORDER_ID
+",
+,What are all the unique job types for work orders that were created by 'janesmith' and have a metadata type of 'Customer_Feedback'?,SELECT DISTINCT t1.JOB_TYPE FROM wo.DUPLO_WORK_ORDER t1 JOIN wo.DUPLO_WORK_ORDER_METADATA t2 ON t1.WORK_ORDER_ID = t2.WORK_ORDER_ID WHERE t1.CREATED_BY = 'janesmith' AND t2.WORK_ORDER_METADATA_TYPE = 'Customer_Feedback',"CREATE TABLE wo.DUPLO_WORK_ORDER (
+                WORK_ORDER_ID VARCHAR(50), -- A unique identifier for each work order. Use this for specific lookups.
+                ASSET_ID VARCHAR(50), -- The ID of the physical asset (e.g., equipment, machinery) that the work order is for.
+                WORKFLOW_CODE VARCHAR(100), -- A code representing the process or sequence of steps for the work order.
+                WORK_ORDER_STATUS VARCHAR(100), -- The current state of the work order (e.g., 'In Progress', 'Completed', 'Canceled').
+                DUE_DATE DATE, -- The date by which the work order must be completed.
+                PRIORITY VARCHAR(5), -- The urgency level of the work order (e.g., '0', '1', '2').
+                CREATED_TIME DATE, -- The timestamp when the work order was created. Use this for queries related to creation date or time.
+                CREATED_BY VARCHAR(100), -- The person or system that created the work order.
+                LAST_MODIFIED_TIME DATE, -- The last time the work order was changed.
+                LAST_MODIFIED_BY VARCHAR(300), -- The person or system that last modified the work order.
+                WORK_ORDER_KEY VARCHAR(300),
+                INTERNAL_WORK_ORDER_ID VARCHAR(50),
+                DISTRIBUTION_NAME VARCHAR(300), -- The name of the group or team the work order was assigned to.
+                DISTRIBUTION_STATUS VARCHAR(300), -- The status of the work order's distribution.
+                DISTRIBUTION_TYPE VARCHAR(300), -- The type of distribution for the work order.
+                OPERATIONAL_GROUP_NAME VARCHAR(300), -- The name of the operational group responsible for the work order.
+                ASSIGNEE_NAME VARCHAR(300), -- The name of the individual assigned to perform the work.
+                ASSIGNEE_IS_ACTIVE VARCHAR(300), -- Indicates if the assigned person is currently active.
+                JOB_TYPE VARCHAR(300), -- The type of job or task the work order represents.
+                FACILITY VARCHAR(100), -- The physical building or location where the work is to be performed.
+                REGION_NAME VARCHAR(100), -- The geographical region of the work order.
+                WORK_ORDER_LANGUAGE VARCHAR(300), -- The language the work order is written in.
+                DISTRIBUTION_OPERATIONAL_REGION_ID VARCHAR(300), -- The Region id of Distribution Operational for the Work Order.
+                FACILITY_OPERATIONAL_REGION_ID VARCHAR(300), -- The Region id of Facility Operational for the Work Order.
+                OPERATIONAL_GRP_OPERATIONAL_REGION_ID VARCHAR(300),
+                ADDITIONAL_SERVICE_ID VARCHAR(300),
+                ADDITIONAL_SERVICE_NAME VARCHAR(300), -- The name of any extra service related to the work order.
+                ODS_UPDATE_DATE DATE, -- The date the record was last updated in the Operational Data Store.
+                MD5_HASH VARCHAR(100),
+                CONSTRAINT PK_WORK_ORDER PRIMARY KEY (WORK_ORDER_ID)
+                );
+
+create TABLE wo.DUPLO_WORK_ORDER_METADATA (
+	WORK_ORDER_ID VARCHAR(50), --The unique ID for a work order metadata.
+	WORK_ORDER_METADATA_TYPE VARCHAR(50), -- The ""key"" or category of data (e.g., 'SCRID', 'language').
+	WORK_ORDER_METADATA_VALUE VARCHAR(300), -- The ""value"" or the content of the data.
+	CREATED_TIME DATE, -- When it was created
+	CREATED_BY VARCHAR(100), -- Who created it
+	LAST_MODIFIED_TIME DATE,
+	LAST_MODIFIED_BY VARCHAR(100),
+	ODS_UPDATE_DATE DATE, -- A technical timestamp for data synchronization with a data warehouse.
+	MD5_HASH VARCHAR(100)
+);
+
+
+Understand Relationships between above tables : 
+   wo.DUPLO_WORK_ORDER.WORK_ORDER_ID = wo.DUPLO_WORK_ORDER_METADATA.WORK_ORDER_ID
+",
+,List all work order IDs that have a metadata type of 'Customer_Name' and a metadata value of 'John Doe'.,SELECT t1.WORK_ORDER_ID FROM wo.DUPLO_WORK_ORDER t1 JOIN wo.DUPLO_WORK_ORDER_METADATA t2 ON t1.WORK_ORDER_ID = t2.WORK_ORDER_ID WHERE t2.WORK_ORDER_METADATA_TYPE = 'Customer_Name' AND t2.WORK_ORDER_METADATA_VALUE = 'John Doe',"CREATE TABLE wo.DUPLO_WORK_ORDER (
+                WORK_ORDER_ID VARCHAR(50), -- A unique identifier for each work order. Use this for specific lookups.
+                ASSET_ID VARCHAR(50), -- The ID of the physical asset (e.g., equipment, machinery) that the work order is for.
+                WORKFLOW_CODE VARCHAR(100), -- A code representing the process or sequence of steps for the work order.
+                WORK_ORDER_STATUS VARCHAR(100), -- The current state of the work order (e.g., 'In Progress', 'Completed', 'Canceled').
+                DUE_DATE DATE, -- The date by which the work order must be completed.
+                PRIORITY VARCHAR(5), -- The urgency level of the work order (e.g., '0', '1', '2').
+                CREATED_TIME DATE, -- The timestamp when the work order was created. Use this for queries related to creation date or time.
+                CREATED_BY VARCHAR(100), -- The person or system that created the work order.
+                LAST_MODIFIED_TIME DATE, -- The last time the work order was changed.
+                LAST_MODIFIED_BY VARCHAR(300), -- The person or system that last modified the work order.
+                WORK_ORDER_KEY VARCHAR(300),
+                INTERNAL_WORK_ORDER_ID VARCHAR(50),
+                DISTRIBUTION_NAME VARCHAR(300), -- The name of the group or team the work order was assigned to.
+                DISTRIBUTION_STATUS VARCHAR(300), -- The status of the work order's distribution.
+                DISTRIBUTION_TYPE VARCHAR(300), -- The type of distribution for the work order.
+                OPERATIONAL_GROUP_NAME VARCHAR(300), -- The name of the operational group responsible for the work order.
+                ASSIGNEE_NAME VARCHAR(300), -- The name of the individual assigned to perform the work.
+                ASSIGNEE_IS_ACTIVE VARCHAR(300), -- Indicates if the assigned person is currently active.
+                JOB_TYPE VARCHAR(300), -- The type of job or task the work order represents.
+                FACILITY VARCHAR(100), -- The physical building or location where the work is to be performed.
+                REGION_NAME VARCHAR(100), -- The geographical region of the work order.
+                WORK_ORDER_LANGUAGE VARCHAR(300), -- The language the work order is written in.
+                DISTRIBUTION_OPERATIONAL_REGION_ID VARCHAR(300), -- The Region id of Distribution Operational for the Work Order.
+                FACILITY_OPERATIONAL_REGION_ID VARCHAR(300), -- The Region id of Facility Operational for the Work Order.
+                OPERATIONAL_GRP_OPERATIONAL_REGION_ID VARCHAR(300),
+                ADDITIONAL_SERVICE_ID VARCHAR(300),
+                ADDITIONAL_SERVICE_NAME VARCHAR(300), -- The name of any extra service related to the work order.
+                ODS_UPDATE_DATE DATE, -- The date the record was last updated in the Operational Data Store.
+                MD5_HASH VARCHAR(100),
+                CONSTRAINT PK_WORK_ORDER PRIMARY KEY (WORK_ORDER_ID)
+                );
+
+create TABLE wo.DUPLO_WORK_ORDER_METADATA (
+	WORK_ORDER_ID VARCHAR(50), --The unique ID for a work order metadata.
+	WORK_ORDER_METADATA_TYPE VARCHAR(50), -- The ""key"" or category of data (e.g., 'SCRID', 'language').
+	WORK_ORDER_METADATA_VALUE VARCHAR(300), -- The ""value"" or the content of the data.
+	CREATED_TIME DATE, -- When it was created
+	CREATED_BY VARCHAR(100), -- Who created it
+	LAST_MODIFIED_TIME DATE,
+	LAST_MODIFIED_BY VARCHAR(100),
+	ODS_UPDATE_DATE DATE, -- A technical timestamp for data synchronization with a data warehouse.
+	MD5_HASH VARCHAR(100)
+);
+
+
+Understand Relationships between above tables : 
+   wo.DUPLO_WORK_ORDER.WORK_ORDER_ID = wo.DUPLO_WORK_ORDER_METADATA.WORK_ORDER_ID
+",
+,Count the number of unique operational groups that have work orders with a metadata type of 'Asset_Location'.,SELECT COUNT(DISTINCT t1.OPERATIONAL_GROUP_NAME) FROM wo.DUPLO_WORK_ORDER t1 JOIN wo.DUPLO_WORK_ORDER_METADATA t2 ON t1.WORK_ORDER_ID = t2.WORK_ORDER_ID WHERE t2.WORK_ORDER_METADATA_TYPE = 'Asset_Location',"CREATE TABLE wo.DUPLO_WORK_ORDER (
+                WORK_ORDER_ID VARCHAR(50), -- A unique identifier for each work order. Use this for specific lookups.
+                ASSET_ID VARCHAR(50), -- The ID of the physical asset (e.g., equipment, machinery) that the work order is for.
+                WORKFLOW_CODE VARCHAR(100), -- A code representing the process or sequence of steps for the work order.
+                WORK_ORDER_STATUS VARCHAR(100), -- The current state of the work order (e.g., 'In Progress', 'Completed', 'Canceled').
+                DUE_DATE DATE, -- The date by which the work order must be completed.
+                PRIORITY VARCHAR(5), -- The urgency level of the work order (e.g., '0', '1', '2').
+                CREATED_TIME DATE, -- The timestamp when the work order was created. Use this for queries related to creation date or time.
+                CREATED_BY VARCHAR(100), -- The person or system that created the work order.
+                LAST_MODIFIED_TIME DATE, -- The last time the work order was changed.
+                LAST_MODIFIED_BY VARCHAR(300), -- The person or system that last modified the work order.
+                WORK_ORDER_KEY VARCHAR(300),
+                INTERNAL_WORK_ORDER_ID VARCHAR(50),
+                DISTRIBUTION_NAME VARCHAR(300), -- The name of the group or team the work order was assigned to.
+                DISTRIBUTION_STATUS VARCHAR(300), -- The status of the work order's distribution.
+                DISTRIBUTION_TYPE VARCHAR(300), -- The type of distribution for the work order.
+                OPERATIONAL_GROUP_NAME VARCHAR(300), -- The name of the operational group responsible for the work order.
+                ASSIGNEE_NAME VARCHAR(300), -- The name of the individual assigned to perform the work.
+                ASSIGNEE_IS_ACTIVE VARCHAR(300), -- Indicates if the assigned person is currently active.
+                JOB_TYPE VARCHAR(300), -- The type of job or task the work order represents.
+                FACILITY VARCHAR(100), -- The physical building or location where the work is to be performed.
+                REGION_NAME VARCHAR(100), -- The geographical region of the work order.
+                WORK_ORDER_LANGUAGE VARCHAR(300), -- The language the work order is written in.
+                DISTRIBUTION_OPERATIONAL_REGION_ID VARCHAR(300), -- The Region id of Distribution Operational for the Work Order.
+                FACILITY_OPERATIONAL_REGION_ID VARCHAR(300), -- The Region id of Facility Operational for the Work Order.
+                OPERATIONAL_GRP_OPERATIONAL_REGION_ID VARCHAR(300),
+                ADDITIONAL_SERVICE_ID VARCHAR(300),
+                ADDITIONAL_SERVICE_NAME VARCHAR(300), -- The name of any extra service related to the work order.
+                ODS_UPDATE_DATE DATE, -- The date the record was last updated in the Operational Data Store.
+                MD5_HASH VARCHAR(100),
+                CONSTRAINT PK_WORK_ORDER PRIMARY KEY (WORK_ORDER_ID)
+                );
+
+create TABLE wo.DUPLO_WORK_ORDER_METADATA (
+	WORK_ORDER_ID VARCHAR(50), --The unique ID for a work order metadata.
+	WORK_ORDER_METADATA_TYPE VARCHAR(50), -- The ""key"" or category of data (e.g., 'SCRID', 'language').
+	WORK_ORDER_METADATA_VALUE VARCHAR(300), -- The ""value"" or the content of the data.
+	CREATED_TIME DATE, -- When it was created
+	CREATED_BY VARCHAR(100), -- Who created it
+	LAST_MODIFIED_TIME DATE,
+	LAST_MODIFIED_BY VARCHAR(100),
+	ODS_UPDATE_DATE DATE, -- A technical timestamp for data synchronization with a data warehouse.
+	MD5_HASH VARCHAR(100)
+);
+
+
+Understand Relationships between above tables : 
+   wo.DUPLO_WORK_ORDER.WORK_ORDER_ID = wo.DUPLO_WORK_ORDER_METADATA.WORK_ORDER_ID
+",
+,"Show me the assignee name, due date, and priority for all work orders with a priority of '1' that also have a metadata value of 'Urgent'. Order the results by due date.","SELECT t1.ASSIGNEE_NAME, t1.DUE_DATE, t1.PRIORITY FROM wo.DUPLO_WORK_ORDER t1 JOIN wo.DUPLO_WORK_ORDER_METADATA t2 ON t1.WORK_ORDER_ID = t2.WORK_ORDER_ID WHERE t1.PRIORITY = '1' AND t2.WORK_ORDER_METADATA_VALUE = 'Urgent' ORDER BY t1.DUE_DATE","CREATE TABLE wo.DUPLO_WORK_ORDER (
+                WORK_ORDER_ID VARCHAR(50), -- A unique identifier for each work order. Use this for specific lookups.
+                ASSET_ID VARCHAR(50), -- The ID of the physical asset (e.g., equipment, machinery) that the work order is for.
+                WORKFLOW_CODE VARCHAR(100), -- A code representing the process or sequence of steps for the work order.
+                WORK_ORDER_STATUS VARCHAR(100), -- The current state of the work order (e.g., 'In Progress', 'Completed', 'Canceled').
+                DUE_DATE DATE, -- The date by which the work order must be completed.
+                PRIORITY VARCHAR(5), -- The urgency level of the work order (e.g., '0', '1', '2').
+                CREATED_TIME DATE, -- The timestamp when the work order was created. Use this for queries related to creation date or time.
+                CREATED_BY VARCHAR(100), -- The person or system that created the work order.
+                LAST_MODIFIED_TIME DATE, -- The last time the work order was changed.
+                LAST_MODIFIED_BY VARCHAR(300), -- The person or system that last modified the work order.
+                WORK_ORDER_KEY VARCHAR(300),
+                INTERNAL_WORK_ORDER_ID VARCHAR(50),
+                DISTRIBUTION_NAME VARCHAR(300), -- The name of the group or team the work order was assigned to.
+                DISTRIBUTION_STATUS VARCHAR(300), -- The status of the work order's distribution.
+                DISTRIBUTION_TYPE VARCHAR(300), -- The type of distribution for the work order.
+                OPERATIONAL_GROUP_NAME VARCHAR(300), -- The name of the operational group responsible for the work order.
+                ASSIGNEE_NAME VARCHAR(300), -- The name of the individual assigned to perform the work.
+                ASSIGNEE_IS_ACTIVE VARCHAR(300), -- Indicates if the assigned person is currently active.
+                JOB_TYPE VARCHAR(300), -- The type of job or task the work order represents.
+                FACILITY VARCHAR(100), -- The physical building or location where the work is to be performed.
+                REGION_NAME VARCHAR(100), -- The geographical region of the work order.
+                WORK_ORDER_LANGUAGE VARCHAR(300), -- The language the work order is written in.
+                DISTRIBUTION_OPERATIONAL_REGION_ID VARCHAR(300), -- The Region id of Distribution Operational for the Work Order.
+                FACILITY_OPERATIONAL_REGION_ID VARCHAR(300), -- The Region id of Facility Operational for the Work Order.
+                OPERATIONAL_GRP_OPERATIONAL_REGION_ID VARCHAR(300),
+                ADDITIONAL_SERVICE_ID VARCHAR(300),
+                ADDITIONAL_SERVICE_NAME VARCHAR(300), -- The name of any extra service related to the work order.
+                ODS_UPDATE_DATE DATE, -- The date the record was last updated in the Operational Data Store.
+                MD5_HASH VARCHAR(100),
+                CONSTRAINT PK_WORK_ORDER PRIMARY KEY (WORK_ORDER_ID)
+                );
+
+create TABLE wo.DUPLO_WORK_ORDER_METADATA (
+	WORK_ORDER_ID VARCHAR(50), --The unique ID for a work order metadata.
+	WORK_ORDER_METADATA_TYPE VARCHAR(50), -- The ""key"" or category of data (e.g., 'SCRID', 'language').
+	WORK_ORDER_METADATA_VALUE VARCHAR(300), -- The ""value"" or the content of the data.
+	CREATED_TIME DATE, -- When it was created
+	CREATED_BY VARCHAR(100), -- Who created it
+	LAST_MODIFIED_TIME DATE,
+	LAST_MODIFIED_BY VARCHAR(100),
+	ODS_UPDATE_DATE DATE, -- A technical timestamp for data synchronization with a data warehouse.
+	MD5_HASH VARCHAR(100)
+);
+
+
+Understand Relationships between above tables : 
+   wo.DUPLO_WORK_ORDER.WORK_ORDER_ID = wo.DUPLO_WORK_ORDER_METADATA.WORK_ORDER_ID
+",
 ,,,,
 ,,,,
